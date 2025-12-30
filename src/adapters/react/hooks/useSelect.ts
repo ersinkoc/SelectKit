@@ -1,20 +1,21 @@
-import { useCallback, useEffect, useRef, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from 'react'
 import { createSelect, Select } from '../../../core/select'
-import type {
-  SelectConfig,
-  SelectState,
-  SelectOption,
-  GroupedOptions,
-  ContainerProps,
-  TriggerProps,
-  InputProps,
-  MenuProps,
-  OptionProps,
-  GroupProps,
-  GroupLabelProps,
-  ClearButtonProps,
-  TagProps,
-  TagRemoveProps,
+import {
+  isSelectOption,
+  type SelectConfig,
+  type SelectState,
+  type SelectOption,
+  type GroupedOptions,
+  type ContainerProps,
+  type TriggerProps,
+  type InputProps,
+  type MenuProps,
+  type OptionProps,
+  type GroupProps,
+  type GroupLabelProps,
+  type ClearButtonProps,
+  type TagProps,
+  type TagRemoveProps,
 } from '../../../types'
 
 export interface UseSelectReturn<T> {
@@ -93,10 +94,18 @@ export function useSelect<T = unknown>(config: SelectConfig<T>): UseSelectReturn
     }
   }, [select, config.value])
 
-  // Update options when they change
+  // Memoize options to prevent infinite loops with empty arrays
+  const optionsKey = useMemo(() => {
+    if (!config.options || !Array.isArray(config.options)) return ''
+    return config.options.map(o =>
+      isSelectOption(o) ? String(o.value) : o.label
+    ).join(',')
+  }, [config.options])
+
+  // Update options when they change (using stable key comparison)
   useEffect(() => {
     select.setOptions(config.options)
-  }, [select, config.options])
+  }, [select, optionsKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Cleanup on unmount
   useEffect(() => {

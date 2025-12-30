@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useRef, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from 'react'
 import { createSelect, Select } from '../../../core/select'
-import type {
-  SelectConfig,
-  SelectOption,
-  InputProps,
-  MenuProps,
-  OptionProps,
+import {
+  isSelectOption,
+  type SelectConfig,
+  type SelectOption,
+  type InputProps,
+  type MenuProps,
+  type OptionProps,
 } from '../../../types'
 
 export interface UseComboboxConfig<T> extends Omit<SelectConfig<T>, 'multiple' | 'searchable'> {
@@ -77,12 +78,20 @@ export function useCombobox<T = unknown>(config: UseComboboxConfig<T>): UseCombo
     [select, onSelect, clearOnSelect]
   )
 
-  // Update options when they change
+  // Memoize options to prevent infinite loops with empty arrays
+  const optionsKey = useMemo(() => {
+    if (!selectConfig.options || !Array.isArray(selectConfig.options)) return ''
+    return selectConfig.options.map(o =>
+      isSelectOption(o) ? String(o.value) : o.label
+    ).join(',')
+  }, [selectConfig.options])
+
+  // Update options when they change (using stable key comparison)
   useEffect(() => {
     if (selectConfig.options) {
       select.setOptions(selectConfig.options)
     }
-  }, [select, selectConfig.options])
+  }, [select, optionsKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Cleanup on unmount
   useEffect(() => {
