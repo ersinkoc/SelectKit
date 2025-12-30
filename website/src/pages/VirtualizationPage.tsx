@@ -1,19 +1,20 @@
 import CodeBlock from '../components/CodeBlock'
 
-const basicVirtualCode = `import { useSelect } from '@oxog/selectkit/react'
-import { useVirtualizer } from '@tanstack/react-virtual'
+const basicVirtualCode = `import { useRef } from 'react'
+import { useSelect } from '@oxog/selectkit/react'
+import { useVirtualList } from '@oxog/scrollex'
 
 function VirtualizedSelect() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
   const { state, getContainerProps, getTriggerProps, getMenuProps, getOptionProps } = useSelect({
     options: largeOptionsList, // 10,000+ options
   })
 
-  const parentRef = useRef<HTMLDivElement>(null)
-
-  const virtualizer = useVirtualizer({
+  const { virtualItems, totalSize } = useVirtualList({
     count: state.filteredOptions.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 36, // Estimated option height
+    containerRef,
+    estimatedItemHeight: 40,
     overscan: 5,
   })
 
@@ -25,30 +26,22 @@ function VirtualizedSelect() {
 
       {state.isOpen && (
         <div
-          ref={parentRef}
+          ref={containerRef}
           {...getMenuProps()}
-          style={{ height: '300px', overflow: 'auto' }}
+          style={{ height: 300, overflow: 'auto' }}
         >
-          <div
-            style={{
-              height: \`\${virtualizer.getTotalSize()}px\`,
-              width: '100%',
-              position: 'relative',
-            }}
-          >
-            {virtualizer.getVirtualItems().map((virtualRow) => {
-              const option = state.filteredOptions[virtualRow.index]!
+          <div style={{ height: totalSize, position: 'relative' }}>
+            {virtualItems.map((virtualItem) => {
+              const option = state.filteredOptions[virtualItem.index]!
               return (
                 <div
                   key={option.value}
-                  {...getOptionProps(option, virtualRow.index)}
+                  {...getOptionProps(option, virtualItem.index)}
                   style={{
                     position: 'absolute',
-                    top: 0,
-                    left: 0,
+                    top: virtualItem.start,
+                    height: virtualItem.size,
                     width: '100%',
-                    height: \`\${virtualRow.size}px\`,
-                    transform: \`translateY(\${virtualRow.start}px)\`,
                   }}
                 >
                   {option.label}
@@ -62,49 +55,112 @@ function VirtualizedSelect() {
   )
 }`
 
-const builtInVirtualCode = `import { createSelect, VirtualScroller } from '@oxog/selectkit'
+const virtualListComponentCode = `import { useSelect } from '@oxog/selectkit/react'
+import { VirtualList } from '@oxog/scrollex'
 
-// Create a select with built-in virtualization
-const select = createSelect({
-  options: largeOptionsList,
-})
+function VirtualizedSelect() {
+  const { state, getContainerProps, getTriggerProps, getMenuProps, getOptionProps } = useSelect({
+    options: largeOptionsList,
+  })
 
-// Use the VirtualScroller utility
-const scroller = new VirtualScroller({
-  itemHeight: 36,
-  containerHeight: 300,
-  overscan: 5,
-})
+  return (
+    <div {...getContainerProps()}>
+      <button {...getTriggerProps()}>
+        {state.selectedOption?.label || 'Select...'}
+      </button>
 
-// Get visible items
-const { startIndex, endIndex, offsetTop, totalHeight } = scroller.getVisibleRange(
-  scrollTop,
-  state.filteredOptions.length
-)
+      {state.isOpen && (
+        <VirtualList
+          {...getMenuProps()}
+          data={state.filteredOptions}
+          height={300}
+          itemHeight={40}
+          renderItem={({ item, index, style }) => (
+            <div {...getOptionProps(item, index)} style={style}>
+              {item.label}
+            </div>
+          )}
+        />
+      )}
+    </div>
+  )
+}`
 
-const visibleOptions = state.filteredOptions.slice(startIndex, endIndex + 1)`
+const scrollToHighlightCode = `import { useRef, useEffect } from 'react'
+import { useSelect } from '@oxog/selectkit/react'
+import { useVirtualList } from '@oxog/scrollex'
 
-const scrollToHighlightCode = `const virtualizer = useVirtualizer({
+function VirtualizedSelect() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const { state, ... } = useSelect({ options: largeOptionsList })
+
+  const { virtualItems, totalSize, scrollToIndex } = useVirtualList({
+    count: state.filteredOptions.length,
+    containerRef,
+    estimatedItemHeight: 40,
+  })
+
+  // Scroll to highlighted option when it changes
+  useEffect(() => {
+    if (state.highlightedIndex >= 0) {
+      scrollToIndex(state.highlightedIndex, { align: 'auto' })
+    }
+  }, [state.highlightedIndex, scrollToIndex])
+
+  // ... rest of component
+}`
+
+const dynamicHeightCode = `const { virtualItems, totalSize, measureElement } = useVirtualList({
   count: state.filteredOptions.length,
-  getScrollElement: () => parentRef.current,
-  estimateSize: () => 36,
-})
-
-// Scroll to highlighted option when it changes
-useEffect(() => {
-  if (state.highlightedIndex >= 0) {
-    virtualizer.scrollToIndex(state.highlightedIndex, { align: 'auto' })
-  }
-}, [state.highlightedIndex, virtualizer])`
-
-const dynamicHeightCode = `const virtualizer = useVirtualizer({
-  count: state.filteredOptions.length,
-  getScrollElement: () => parentRef.current,
-  // Dynamic height based on option content
-  estimateSize: (index) => {
+  containerRef,
+  estimatedItemHeight: 50,
+  // Dynamic heights - items with descriptions are taller
+  getItemHeight: (index) => {
     const option = state.filteredOptions[index]
-    return option?.description ? 56 : 36
+    return option?.description ? 72 : 40
   },
+})
+
+// For auto-measurement of dynamic content
+{virtualItems.map((virtualItem) => {
+  const option = state.filteredOptions[virtualItem.index]
+  return (
+    <div
+      key={option.value}
+      ref={(el) => measureElement(virtualItem.index, el)}
+      style={{
+        position: 'absolute',
+        top: virtualItem.start,
+        width: '100%',
+      }}
+    >
+      <div>{option.label}</div>
+      {option.description && (
+        <div className="text-sm text-gray-500">{option.description}</div>
+      )}
+    </div>
+  )
+})}`
+
+const pluginsCode = `import { useVirtualList } from '@oxog/scrollex'
+import { stickyHeadersPlugin } from '@oxog/scrollex/plugins'
+
+// Grouped options with sticky category headers
+const { virtualItems, totalSize } = useVirtualList({
+  count: state.filteredOptions.length,
+  containerRef,
+  estimatedItemHeight: 40,
+  plugins: [
+    stickyHeadersPlugin({
+      getGroupKey: (index) => state.filteredOptions[index]?.group || '',
+      renderHeader: (groupKey) => (
+        <div className="sticky top-0 bg-gray-900 px-4 py-2 font-semibold">
+          {groupKey}
+        </div>
+      ),
+    }),
+  ],
 })`
 
 const performanceTipsCode = `// 1. Memoize options to prevent unnecessary re-renders
@@ -115,13 +171,16 @@ const handleChange = useCallback((value, option) => {
   setValue(value)
 }, [])
 
-// 3. Consider windowed rendering for very large lists
-const windowedOptions = useMemo(() => {
-  if (state.filteredOptions.length > 1000) {
-    return state.filteredOptions.slice(0, 1000)
-  }
-  return state.filteredOptions
-}, [state.filteredOptions])`
+// 3. Invalidate measurements when options change
+const { invalidateAllMeasurements } = useVirtualList({
+  count: state.filteredOptions.length,
+  containerRef,
+  estimatedItemHeight: 40,
+})
+
+useEffect(() => {
+  invalidateAllMeasurements()
+}, [state.filteredOptions, invalidateAllMeasurements])`
 
 export default function VirtualizationPage() {
   return (
@@ -151,29 +210,31 @@ export default function VirtualizationPage() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-100 mb-4">With TanStack Virtual</h2>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">With Scrollex</h2>
         <p className="text-gray-400 mb-4">
           We recommend using{' '}
           <a
-            href="https://tanstack.com/virtual"
+            href="https://scrollex.oxog.dev"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary-400 hover:text-primary-300 hover:underline"
           >
-            @tanstack/react-virtual
+            @oxog/scrollex
           </a>{' '}
-          for the best virtual scrolling experience:
+          for the best virtual scrolling experience. It's our lightweight, plugin-based virtualization
+          library designed to work seamlessly with SelectKit:
         </p>
         <CodeBlock code={basicVirtualCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-100 mb-4">Built-in VirtualScroller</h2>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">VirtualList Component</h2>
         <p className="text-gray-400 mb-4">
-          SelectKit includes a lightweight <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">VirtualScroller</code> utility
-          for framework-agnostic virtualization:
+          For a simpler API, use the{' '}
+          <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">VirtualList</code>{' '}
+          component:
         </p>
-        <CodeBlock code={builtInVirtualCode} language="tsx" />
+        <CodeBlock code={virtualListComponentCode} language="tsx" />
       </section>
 
       <section>
@@ -187,10 +248,20 @@ export default function VirtualizationPage() {
       <section>
         <h2 className="text-2xl font-bold text-gray-100 mb-4">Dynamic Heights</h2>
         <p className="text-gray-400 mb-4">
-          For options with varying heights, use the <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">estimateSize</code>{' '}
-          function:
+          For options with varying heights, use{' '}
+          <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">getItemHeight</code>{' '}
+          or auto-measurement with{' '}
+          <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">measureElement</code>:
         </p>
         <CodeBlock code={dynamicHeightCode} language="tsx" />
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Plugins</h2>
+        <p className="text-gray-400 mb-4">
+          Scrollex supports plugins for advanced features like sticky headers, infinite loading, and more:
+        </p>
+        <CodeBlock code={pluginsCode} language="tsx" />
       </section>
 
       <section>
@@ -228,6 +299,25 @@ export default function VirtualizationPage() {
             </tbody>
           </table>
         </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Installation</h2>
+        <p className="text-gray-400 mb-4">
+          Install Scrollex alongside SelectKit:
+        </p>
+        <CodeBlock code={`npm install @oxog/scrollex`} language="bash" />
+        <p className="text-gray-400 mt-4">
+          For more details, visit the{' '}
+          <a
+            href="https://scrollex.oxog.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary-400 hover:text-primary-300 hover:underline"
+          >
+            Scrollex documentation
+          </a>.
+        </p>
       </section>
     </div>
   )
