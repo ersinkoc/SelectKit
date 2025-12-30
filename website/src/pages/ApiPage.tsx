@@ -151,76 +151,76 @@ export default function ApiPage() {
   return (
     <div className="space-y-12">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">API Reference</h1>
-        <p className="mt-4 text-lg text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-100">API Reference</h1>
+        <p className="mt-4 text-lg text-gray-400">
           Complete API documentation for SelectKit hooks and core functions.
         </p>
       </div>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Option Type</h2>
-        <p className="text-gray-600 mb-4">
-          Options are objects with at least <code className="inline-code">value</code> and{' '}
-          <code className="inline-code">label</code> properties:
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Option Type</h2>
+        <p className="text-gray-400 mb-4">
+          Options are objects with at least <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">value</code> and{' '}
+          <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">label</code> properties:
         </p>
         <CodeBlock code={optionTypeCode} language="typescript" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">useSelect</h2>
-        <p className="text-gray-600 mb-4">The main hook for single-value select components.</p>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">useSelect</h2>
+        <p className="text-gray-400 mb-4">The main hook for single-value select components.</p>
         <CodeBlock code={useSelectCode} language="typescript" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">useMultiSelect</h2>
-        <p className="text-gray-600 mb-4">
-          Hook for multi-value select. Extends <code className="inline-code">useSelect</code> with
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">useMultiSelect</h2>
+        <p className="text-gray-400 mb-4">
+          Hook for multi-value select. Extends <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">useSelect</code> with
           multi-select specific features.
         </p>
         <CodeBlock code={useMultiSelectCode} language="typescript" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">useCombobox</h2>
-        <p className="text-gray-600 mb-4">
-          Hook for searchable select with text input. Extends <code className="inline-code">useSelect</code>.
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">useCombobox</h2>
+        <p className="text-gray-400 mb-4">
+          Hook for searchable select with text input. Extends <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">useSelect</code>.
         </p>
         <CodeBlock code={useComboboxCode} language="typescript" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Core API</h2>
-        <p className="text-gray-600 mb-4">Use the core API for framework-agnostic usage:</p>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Core API</h2>
+        <p className="text-gray-400 mb-4">Use the core API for framework-agnostic usage:</p>
         <CodeBlock code={coreApiCode} language="typescript" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">State</h2>
-        <p className="text-gray-600 mb-4">The state object contains all current values:</p>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">State</h2>
+        <p className="text-gray-400 mb-4">The state object contains all current values:</p>
         <CodeBlock code={stateTypeCode} language="typescript" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Props Getters</h2>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Props Getters</h2>
         <div className="space-y-6">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">getContainerProps()</h3>
-            <p className="text-gray-600 mb-2">
+            <h3 className="text-lg font-semibold text-gray-100 mb-2">getContainerProps()</h3>
+            <p className="text-gray-400 mb-2">
               Returns props for the container element. Handles click-outside detection.
             </p>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 text-sm">
-                <thead>
+            <div className="overflow-x-auto rounded-lg border border-gray-800">
+              <table className="min-w-full divide-y divide-gray-800 text-sm">
+                <thead className="bg-gray-900">
                   <tr>
-                    <th className="px-3 py-2 text-left font-medium text-gray-500">Prop</th>
-                    <th className="px-3 py-2 text-left font-medium text-gray-500">Type</th>
+                    <th className="px-3 py-2 text-left font-medium text-gray-400">Prop</th>
+                    <th className="px-3 py-2 text-left font-medium text-gray-400">Type</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-800 bg-gray-900/50">
                   <tr>
-                    <td className="px-3 py-2 font-mono">ref</td>
-                    <td className="px-3 py-2">RefCallback</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">ref</td>
+                    <td className="px-3 py-2 text-gray-300">RefCallback</td>
                   </tr>
                 </tbody>
               </table>
@@ -228,40 +228,40 @@ export default function ApiPage() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">getTriggerProps()</h3>
-            <p className="text-gray-600 mb-2">Returns props for the trigger button element.</p>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 text-sm">
-                <thead>
+            <h3 className="text-lg font-semibold text-gray-100 mb-2">getTriggerProps()</h3>
+            <p className="text-gray-400 mb-2">Returns props for the trigger button element.</p>
+            <div className="overflow-x-auto rounded-lg border border-gray-800">
+              <table className="min-w-full divide-y divide-gray-800 text-sm">
+                <thead className="bg-gray-900">
                   <tr>
-                    <th className="px-3 py-2 text-left font-medium text-gray-500">Prop</th>
-                    <th className="px-3 py-2 text-left font-medium text-gray-500">Type</th>
+                    <th className="px-3 py-2 text-left font-medium text-gray-400">Prop</th>
+                    <th className="px-3 py-2 text-left font-medium text-gray-400">Type</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-800 bg-gray-900/50">
                   <tr>
-                    <td className="px-3 py-2 font-mono">role</td>
-                    <td className="px-3 py-2">"combobox"</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">role</td>
+                    <td className="px-3 py-2 text-gray-300">"combobox"</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">aria-expanded</td>
-                    <td className="px-3 py-2">boolean</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">aria-expanded</td>
+                    <td className="px-3 py-2 text-gray-300">boolean</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">aria-haspopup</td>
-                    <td className="px-3 py-2">"listbox"</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">aria-haspopup</td>
+                    <td className="px-3 py-2 text-gray-300">"listbox"</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">aria-controls</td>
-                    <td className="px-3 py-2">string</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">aria-controls</td>
+                    <td className="px-3 py-2 text-gray-300">string</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">onClick</td>
-                    <td className="px-3 py-2">() =&gt; void</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">onClick</td>
+                    <td className="px-3 py-2 text-gray-300">() =&gt; void</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">onKeyDown</td>
-                    <td className="px-3 py-2">KeyboardEventHandler</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">onKeyDown</td>
+                    <td className="px-3 py-2 text-gray-300">KeyboardEventHandler</td>
                   </tr>
                 </tbody>
               </table>
@@ -269,32 +269,32 @@ export default function ApiPage() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">getMenuProps()</h3>
-            <p className="text-gray-600 mb-2">Returns props for the menu/listbox element.</p>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 text-sm">
-                <thead>
+            <h3 className="text-lg font-semibold text-gray-100 mb-2">getMenuProps()</h3>
+            <p className="text-gray-400 mb-2">Returns props for the menu/listbox element.</p>
+            <div className="overflow-x-auto rounded-lg border border-gray-800">
+              <table className="min-w-full divide-y divide-gray-800 text-sm">
+                <thead className="bg-gray-900">
                   <tr>
-                    <th className="px-3 py-2 text-left font-medium text-gray-500">Prop</th>
-                    <th className="px-3 py-2 text-left font-medium text-gray-500">Type</th>
+                    <th className="px-3 py-2 text-left font-medium text-gray-400">Prop</th>
+                    <th className="px-3 py-2 text-left font-medium text-gray-400">Type</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-800 bg-gray-900/50">
                   <tr>
-                    <td className="px-3 py-2 font-mono">role</td>
-                    <td className="px-3 py-2">"listbox"</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">role</td>
+                    <td className="px-3 py-2 text-gray-300">"listbox"</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">id</td>
-                    <td className="px-3 py-2">string</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">id</td>
+                    <td className="px-3 py-2 text-gray-300">string</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">aria-labelledby</td>
-                    <td className="px-3 py-2">string</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">aria-labelledby</td>
+                    <td className="px-3 py-2 text-gray-300">string</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">tabIndex</td>
-                    <td className="px-3 py-2">-1</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">tabIndex</td>
+                    <td className="px-3 py-2 text-gray-300">-1</td>
                   </tr>
                 </tbody>
               </table>
@@ -302,42 +302,42 @@ export default function ApiPage() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg font-semibold text-gray-100 mb-2">
               getOptionProps(option, index)
             </h3>
-            <p className="text-gray-600 mb-2">Returns props for each option element.</p>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 text-sm">
-                <thead>
+            <p className="text-gray-400 mb-2">Returns props for each option element.</p>
+            <div className="overflow-x-auto rounded-lg border border-gray-800">
+              <table className="min-w-full divide-y divide-gray-800 text-sm">
+                <thead className="bg-gray-900">
                   <tr>
-                    <th className="px-3 py-2 text-left font-medium text-gray-500">Prop</th>
-                    <th className="px-3 py-2 text-left font-medium text-gray-500">Type</th>
+                    <th className="px-3 py-2 text-left font-medium text-gray-400">Prop</th>
+                    <th className="px-3 py-2 text-left font-medium text-gray-400">Type</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-800 bg-gray-900/50">
                   <tr>
-                    <td className="px-3 py-2 font-mono">role</td>
-                    <td className="px-3 py-2">"option"</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">role</td>
+                    <td className="px-3 py-2 text-gray-300">"option"</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">id</td>
-                    <td className="px-3 py-2">string</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">id</td>
+                    <td className="px-3 py-2 text-gray-300">string</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">aria-selected</td>
-                    <td className="px-3 py-2">boolean</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">aria-selected</td>
+                    <td className="px-3 py-2 text-gray-300">boolean</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">aria-disabled</td>
-                    <td className="px-3 py-2">boolean</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">aria-disabled</td>
+                    <td className="px-3 py-2 text-gray-300">boolean</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">onClick</td>
-                    <td className="px-3 py-2">() =&gt; void</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">onClick</td>
+                    <td className="px-3 py-2 text-gray-300">() =&gt; void</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-mono">onMouseEnter</td>
-                    <td className="px-3 py-2">() =&gt; void</td>
+                    <td className="px-3 py-2 font-mono text-primary-400">onMouseEnter</td>
+                    <td className="px-3 py-2 text-gray-300">() =&gt; void</td>
                   </tr>
                 </tbody>
               </table>
@@ -347,39 +347,39 @@ export default function ApiPage() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Utility Functions</h2>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Utility Functions</h2>
         <div className="space-y-4">
-          <div className="p-4 border border-gray-200 rounded-lg">
-            <h3 className="font-semibold text-gray-900">createCachedLoader</h3>
-            <p className="text-sm text-gray-600 mt-1">
+          <div className="p-4 border border-gray-700 rounded-lg bg-gray-800/50">
+            <h3 className="font-semibold text-gray-100">createCachedLoader</h3>
+            <p className="text-sm text-gray-400 mt-1">
               Wraps a loader function with caching support.
             </p>
-            <code className="text-xs mt-2 block">
+            <code className="text-xs mt-2 block text-primary-400">
               createCachedLoader(loader, {'{'} ttlMs, maxCacheSize {'}'})
             </code>
           </div>
-          <div className="p-4 border border-gray-200 rounded-lg">
-            <h3 className="font-semibold text-gray-900">withRetry</h3>
-            <p className="text-sm text-gray-600 mt-1">
+          <div className="p-4 border border-gray-700 rounded-lg bg-gray-800/50">
+            <h3 className="font-semibold text-gray-100">withRetry</h3>
+            <p className="text-sm text-gray-400 mt-1">
               Wraps a loader function with retry and backoff support.
             </p>
-            <code className="text-xs mt-2 block">
+            <code className="text-xs mt-2 block text-primary-400">
               withRetry(loader, {'{'} maxRetries, delayMs, backoff {'}'})
             </code>
           </div>
-          <div className="p-4 border border-gray-200 rounded-lg">
-            <h3 className="font-semibold text-gray-900">combineLoaders</h3>
-            <p className="text-sm text-gray-600 mt-1">
+          <div className="p-4 border border-gray-700 rounded-lg bg-gray-800/50">
+            <h3 className="font-semibold text-gray-100">combineLoaders</h3>
+            <p className="text-sm text-gray-400 mt-1">
               Combines multiple loaders into one, merging their results.
             </p>
-            <code className="text-xs mt-2 block">combineLoaders([loader1, loader2])</code>
+            <code className="text-xs mt-2 block text-primary-400">combineLoaders([loader1, loader2])</code>
           </div>
-          <div className="p-4 border border-gray-200 rounded-lg">
-            <h3 className="font-semibold text-gray-900">createFetchLoader</h3>
-            <p className="text-sm text-gray-600 mt-1">
+          <div className="p-4 border border-gray-700 rounded-lg bg-gray-800/50">
+            <h3 className="font-semibold text-gray-100">createFetchLoader</h3>
+            <p className="text-sm text-gray-400 mt-1">
               Creates a loader that fetches from a URL.
             </p>
-            <code className="text-xs mt-2 block">
+            <code className="text-xs mt-2 block text-primary-400">
               createFetchLoader(url, {'{'} transformResponse {'}'})
             </code>
           </div>

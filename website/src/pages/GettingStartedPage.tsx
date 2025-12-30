@@ -152,70 +152,70 @@ export default function GettingStartedPage() {
   return (
     <div className="space-y-12">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Getting Started</h1>
-        <p className="mt-4 text-lg text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-100">Getting Started</h1>
+        <p className="mt-4 text-lg text-gray-400">
           Learn how to install and use SelectKit in your React application.
         </p>
       </div>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Installation</h2>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Installation</h2>
         <CodeBlock code={installCode} language="bash" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Basic Usage</h2>
-        <p className="text-gray-600 mb-4">
-          The <code className="inline-code">useSelect</code> hook provides everything you need to build a
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Basic Usage</h2>
+        <p className="text-gray-400 mb-4">
+          The <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">useSelect</code> hook provides everything you need to build a
           fully accessible select component.
         </p>
         <CodeBlock code={basicUsageCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Multi-Select</h2>
-        <p className="text-gray-600 mb-4">
-          Use <code className="inline-code">useMultiSelect</code> for selecting multiple options.
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Multi-Select</h2>
+        <p className="text-gray-400 mb-4">
+          Use <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">useMultiSelect</code> for selecting multiple options.
         </p>
         <CodeBlock code={multiSelectCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Combobox</h2>
-        <p className="text-gray-600 mb-4">
-          Use <code className="inline-code">useCombobox</code> for a searchable select with text input.
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Combobox</h2>
+        <p className="text-gray-400 mb-4">
+          Use <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">useCombobox</code> for a searchable select with text input.
         </p>
         <CodeBlock code={comboboxCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Core Only (No React)</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Core Only (No React)</h2>
+        <p className="text-gray-400 mb-4">
           You can use SelectKit without React by importing from the core module.
         </p>
         <CodeBlock code={coreOnlyCode} language="typescript" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Next Steps</h2>
-        <ul className="space-y-2 text-gray-600">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Next Steps</h2>
+        <ul className="space-y-2 text-gray-400">
           <li>
-            <a href="/select" className="text-primary-600 hover:underline">
+            <a href="/select" className="text-primary-400 hover:text-primary-300 hover:underline">
               Learn about Select →
             </a>
           </li>
           <li>
-            <a href="/multi-select" className="text-primary-600 hover:underline">
+            <a href="/multi-select" className="text-primary-400 hover:text-primary-300 hover:underline">
               Learn about MultiSelect →
             </a>
           </li>
           <li>
-            <a href="/async" className="text-primary-600 hover:underline">
+            <a href="/async" className="text-primary-400 hover:text-primary-300 hover:underline">
               Learn about async loading →
             </a>
           </li>
           <li>
-            <a href="/styling" className="text-primary-600 hover:underline">
+            <a href="/styling" className="text-primary-400 hover:text-primary-300 hover:underline">
               Learn about styling →
             </a>
           </li>

@@ -1,4 +1,5 @@
 import { useCombobox, type SelectOption } from '@oxog/selectkit/react'
+import { Loader2, Search } from 'lucide-react'
 import CodeBlock from '../components/CodeBlock'
 import Demo from '../components/Demo'
 
@@ -50,42 +51,27 @@ function AsyncCombobox() {
   return (
     <div className="relative w-64">
       <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
         <input
           {...getInputProps()}
-          className="w-full px-4 py-2 pr-10 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+          className="w-full pl-10 pr-10 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 placeholder-gray-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
         />
         {isLoading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2">
-            <svg
-              className="animate-spin h-4 w-4 text-primary-500"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
+            <Loader2 className="w-4 h-4 text-primary-400 animate-spin" />
           </div>
         )}
       </div>
       {isOpen && (
         <ul
           {...getMenuProps()}
-          className="absolute z-10 w-full mt-1 py-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-auto"
+          className="absolute z-50 w-full mt-1 py-1 bg-gray-800 border border-gray-700 rounded-lg shadow-xl max-h-60 overflow-auto"
         >
           {isLoading ? (
-            <li className="px-4 py-3 text-center text-gray-500">Loading...</li>
+            <li className="px-4 py-3 text-center text-gray-400 flex items-center justify-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Loading...
+            </li>
           ) : filteredOptions.length === 0 ? (
             <li className="px-4 py-3 text-center text-gray-500">
               {inputValue ? 'No results found' : 'Type to search'}
@@ -95,10 +81,10 @@ function AsyncCombobox() {
               <li
                 key={option.value}
                 {...getOptionProps(option, index)}
-                className={`px-4 py-2 cursor-pointer ${
+                className={`px-4 py-2.5 cursor-pointer transition-colors ${
                   index === highlightedIndex
-                    ? 'bg-primary-50 text-primary-700'
-                    : 'text-gray-700'
+                    ? 'bg-primary-500/20 text-primary-400'
+                    : 'text-gray-300 hover:bg-gray-700'
                 }`}
               >
                 {option.label}
@@ -171,14 +157,14 @@ export default function AsyncPage() {
   return (
     <div className="space-y-12">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Async Loading</h1>
-        <p className="mt-4 text-lg text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-100">Async Loading</h1>
+        <p className="mt-4 text-lg text-gray-400">
           Load options asynchronously from an API with debouncing and caching support.
         </p>
       </div>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Basic Async</h2>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Basic Async</h2>
         <Demo title="Async Combobox" description="Type to search. Results are loaded from a simulated API.">
           <AsyncCombobox />
         </Demo>
@@ -188,32 +174,32 @@ export default function AsyncPage() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Debouncing</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Debouncing</h2>
+        <p className="text-gray-400 mb-4">
           Prevent excessive API calls by debouncing the search input.
         </p>
         <CodeBlock code={debounceCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Minimum Search Length</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Minimum Search Length</h2>
+        <p className="text-gray-400 mb-4">
           Only trigger the search after a minimum number of characters.
         </p>
         <CodeBlock code={minLengthCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Caching</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Caching</h2>
+        <p className="text-gray-400 mb-4">
           Cache search results to avoid redundant API calls.
         </p>
         <CodeBlock code={cacheCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Error Handling</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Error Handling</h2>
+        <p className="text-gray-400 mb-4">
           Handle loading errors gracefully in your loadOptions function.
         </p>
         <CodeBlock code={errorHandlingCode} language="tsx" />

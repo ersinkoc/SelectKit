@@ -238,99 +238,99 @@ export default function StylingPage() {
   return (
     <div className="space-y-12">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Styling</h1>
-        <p className="mt-4 text-lg text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-100">Styling</h1>
+        <p className="mt-4 text-lg text-gray-400">
           SelectKit is completely unstyled, giving you full control over the appearance. Use any styling
           approach you prefer.
         </p>
       </div>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Headless Architecture</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Headless Architecture</h2>
+        <p className="text-gray-400 mb-4">
           SelectKit follows the headless UI pattern. It handles all the complex logic (keyboard navigation,
           ARIA attributes, state management) while you provide the visual layer.
         </p>
-        <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-blue-800">
+        <div className="p-4 bg-primary-500/10 border border-primary-500/30 rounded-lg">
+          <p className="text-sm text-primary-300">
             <strong>Key principle:</strong> Props getter functions like{' '}
-            <code className="inline-code">getTriggerProps()</code> return the necessary attributes and event
+            <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">getTriggerProps()</code> return the necessary attributes and event
             handlers. You spread these onto your elements and add your own classes.
           </p>
         </div>
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Tailwind CSS</h2>
-        <p className="text-gray-600 mb-4">Perfect for utility-first styling with Tailwind CSS:</p>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Tailwind CSS</h2>
+        <p className="text-gray-400 mb-4">Perfect for utility-first styling with Tailwind CSS:</p>
         <CodeBlock code={tailwindCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">CSS Modules</h2>
-        <p className="text-gray-600 mb-4">For scoped, modular CSS:</p>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">CSS Modules</h2>
+        <p className="text-gray-400 mb-4">For scoped, modular CSS:</p>
         <CodeBlock code={cssModulesCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">CSS-in-JS</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">CSS-in-JS</h2>
+        <p className="text-gray-400 mb-4">
           Works great with styled-components, Emotion, or any CSS-in-JS library:
         </p>
         <CodeBlock code={cssInJsCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Animations</h2>
-        <p className="text-gray-600 mb-4">Add smooth animations for opening/closing the dropdown:</p>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Animations</h2>
+        <p className="text-gray-400 mb-4">Add smooth animations for opening/closing the dropdown:</p>
         <CodeBlock code={animationCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Custom Option Rendering</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Custom Option Rendering</h2>
+        <p className="text-gray-400 mb-4">
           Render options with icons, descriptions, or any custom content:
         </p>
         <CodeBlock code={customIconsCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Styling States</h2>
-        <p className="text-gray-600 mb-4">Access these state properties to style different states:</p>
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Styling States</h2>
+        <p className="text-gray-400 mb-4">Access these state properties to style different states:</p>
+        <div className="overflow-x-auto rounded-lg border border-gray-800">
+          <table className="min-w-full divide-y divide-gray-800">
+            <thead className="bg-gray-900">
               <tr>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">State</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Property</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Use For</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">State</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Property</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Use For</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-800 bg-gray-900/50">
               <tr>
-                <td className="px-4 py-3 text-sm text-gray-900">Open/Closed</td>
-                <td className="px-4 py-3 text-sm font-mono text-gray-600">state.isOpen</td>
-                <td className="px-4 py-3 text-sm text-gray-600">Show/hide menu, rotate chevron</td>
+                <td className="px-4 py-3 text-sm text-gray-100">Open/Closed</td>
+                <td className="px-4 py-3 text-sm font-mono text-primary-400">state.isOpen</td>
+                <td className="px-4 py-3 text-sm text-gray-400">Show/hide menu, rotate chevron</td>
               </tr>
               <tr>
-                <td className="px-4 py-3 text-sm text-gray-900">Highlighted</td>
-                <td className="px-4 py-3 text-sm font-mono text-gray-600">state.highlightedIndex</td>
-                <td className="px-4 py-3 text-sm text-gray-600">Highlight current option</td>
+                <td className="px-4 py-3 text-sm text-gray-100">Highlighted</td>
+                <td className="px-4 py-3 text-sm font-mono text-primary-400">state.highlightedIndex</td>
+                <td className="px-4 py-3 text-sm text-gray-400">Highlight current option</td>
               </tr>
               <tr>
-                <td className="px-4 py-3 text-sm text-gray-900">Selected</td>
-                <td className="px-4 py-3 text-sm font-mono text-gray-600">state.value</td>
-                <td className="px-4 py-3 text-sm text-gray-600">Show checkmark, bold text</td>
+                <td className="px-4 py-3 text-sm text-gray-100">Selected</td>
+                <td className="px-4 py-3 text-sm font-mono text-primary-400">state.value</td>
+                <td className="px-4 py-3 text-sm text-gray-400">Show checkmark, bold text</td>
               </tr>
               <tr>
-                <td className="px-4 py-3 text-sm text-gray-900">Disabled</td>
-                <td className="px-4 py-3 text-sm font-mono text-gray-600">option.disabled</td>
-                <td className="px-4 py-3 text-sm text-gray-600">Gray out, prevent interaction</td>
+                <td className="px-4 py-3 text-sm text-gray-100">Disabled</td>
+                <td className="px-4 py-3 text-sm font-mono text-primary-400">option.disabled</td>
+                <td className="px-4 py-3 text-sm text-gray-400">Gray out, prevent interaction</td>
               </tr>
               <tr>
-                <td className="px-4 py-3 text-sm text-gray-900">Loading</td>
-                <td className="px-4 py-3 text-sm font-mono text-gray-600">isLoading</td>
-                <td className="px-4 py-3 text-sm text-gray-600">Show spinner</td>
+                <td className="px-4 py-3 text-sm text-gray-100">Loading</td>
+                <td className="px-4 py-3 text-sm font-mono text-primary-400">isLoading</td>
+                <td className="px-4 py-3 text-sm text-gray-400">Show spinner</td>
               </tr>
             </tbody>
           </table>

@@ -127,38 +127,38 @@ export default function VirtualizationPage() {
   return (
     <div className="space-y-12">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Virtualization</h1>
-        <p className="mt-4 text-lg text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-100">Virtualization</h1>
+        <p className="mt-4 text-lg text-gray-400">
           Efficiently render large lists with thousands of options using virtual scrolling.
         </p>
       </div>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Why Virtualization?</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Why Virtualization?</h2>
+        <p className="text-gray-400 mb-4">
           When dealing with large datasets (1,000+ options), rendering all items at once can cause:
         </p>
-        <ul className="list-disc list-inside space-y-2 text-gray-600">
+        <ul className="list-disc list-inside space-y-2 text-gray-400">
           <li>Slow initial render times</li>
           <li>Janky scrolling performance</li>
           <li>High memory usage</li>
           <li>Poor user experience</li>
         </ul>
-        <p className="text-gray-600 mt-4">
+        <p className="text-gray-400 mt-4">
           Virtual scrolling solves this by only rendering the items currently visible in the viewport,
           plus a small buffer (overscan).
         </p>
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">With TanStack Virtual</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">With TanStack Virtual</h2>
+        <p className="text-gray-400 mb-4">
           We recommend using{' '}
           <a
             href="https://tanstack.com/virtual"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary-600 hover:underline"
+            className="text-primary-400 hover:text-primary-300 hover:underline"
           >
             @tanstack/react-virtual
           </a>{' '}
@@ -168,62 +168,62 @@ export default function VirtualizationPage() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Built-in VirtualScroller</h2>
-        <p className="text-gray-600 mb-4">
-          SelectKit includes a lightweight <code className="inline-code">VirtualScroller</code> utility
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Built-in VirtualScroller</h2>
+        <p className="text-gray-400 mb-4">
+          SelectKit includes a lightweight <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">VirtualScroller</code> utility
           for framework-agnostic virtualization:
         </p>
         <CodeBlock code={builtInVirtualCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Scroll to Highlighted</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Scroll to Highlighted</h2>
+        <p className="text-gray-400 mb-4">
           Ensure the highlighted option is always visible when using keyboard navigation:
         </p>
         <CodeBlock code={scrollToHighlightCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Dynamic Heights</h2>
-        <p className="text-gray-600 mb-4">
-          For options with varying heights, use the <code className="inline-code">estimateSize</code>{' '}
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Dynamic Heights</h2>
+        <p className="text-gray-400 mb-4">
+          For options with varying heights, use the <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">estimateSize</code>{' '}
           function:
         </p>
         <CodeBlock code={dynamicHeightCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Performance Tips</h2>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Performance Tips</h2>
         <CodeBlock code={performanceTipsCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">When to Use Virtualization</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">When to Use Virtualization</h2>
+        <div className="overflow-x-auto rounded-lg border border-gray-800">
+          <table className="min-w-full divide-y divide-gray-800">
+            <thead className="bg-gray-900">
               <tr>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Option Count</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Recommendation</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Option Count</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Recommendation</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-800 bg-gray-900/50">
               <tr>
-                <td className="px-4 py-3 text-sm text-gray-900">&lt; 100</td>
-                <td className="px-4 py-3 text-sm text-gray-600">No virtualization needed</td>
+                <td className="px-4 py-3 text-sm text-gray-100">&lt; 100</td>
+                <td className="px-4 py-3 text-sm text-gray-400">No virtualization needed</td>
               </tr>
               <tr>
-                <td className="px-4 py-3 text-sm text-gray-900">100 - 500</td>
-                <td className="px-4 py-3 text-sm text-gray-600">Optional - test performance first</td>
+                <td className="px-4 py-3 text-sm text-gray-100">100 - 500</td>
+                <td className="px-4 py-3 text-sm text-gray-400">Optional - test performance first</td>
               </tr>
               <tr>
-                <td className="px-4 py-3 text-sm text-gray-900">500 - 5,000</td>
-                <td className="px-4 py-3 text-sm text-gray-600">Recommended</td>
+                <td className="px-4 py-3 text-sm text-gray-100">500 - 5,000</td>
+                <td className="px-4 py-3 text-sm text-gray-400">Recommended</td>
               </tr>
               <tr>
-                <td className="px-4 py-3 text-sm text-gray-900">&gt; 5,000</td>
-                <td className="px-4 py-3 text-sm text-gray-600">Required + consider pagination/search</td>
+                <td className="px-4 py-3 text-sm text-gray-100">&gt; 5,000</td>
+                <td className="px-4 py-3 text-sm text-gray-400">Required + consider pagination/search</td>
               </tr>
             </tbody>
           </table>
