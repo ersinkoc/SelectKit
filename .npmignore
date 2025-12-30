@@ -1,0 +1,26 @@
+# Source files
+src/
+tests/
+website/
+
+# Config files
+tsconfig.json
+tsup.config.ts
+vitest.config.ts
+.gitignore
+
+# Documentation (keep README)
+SPECIFICATION.md
+IMPLEMENTATION.md
+TASKS.md
+
+# Development files
+.github/
+.vscode/
+.idea/
+coverage/
+
+# Misc
+*.log
+.DS_Store
+Thumbs.db
