@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSelect, type SelectOption } from '@oxog/selectkit/react'
+import { ChevronDown, Plus, Search } from 'lucide-react'
 import CodeBlock from '../components/CodeBlock'
 import Demo from '../components/Demo'
 
@@ -36,30 +37,34 @@ function CreatableSelect() {
     <div {...getContainerProps()} className="relative w-64">
       <button
         {...getTriggerProps()}
-        className="w-full px-4 py-2 text-left bg-white border border-gray-300 rounded-lg shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+        className="w-full px-4 py-2.5 text-left bg-gray-800 border border-gray-700 rounded-lg shadow-sm hover:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
       >
-        <span className={state.selectedOptions[0] ? 'text-gray-900' : 'text-gray-400'}>
+        <span className={state.selectedOptions[0] ? 'text-gray-100' : 'text-gray-500'}>
           {state.selectedOptions[0]?.label || 'Search or create...'}
         </span>
+        <ChevronDown className={`absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 transition-transform ${state.isOpen ? 'rotate-180' : ''}`} />
       </button>
       {state.isOpen && (
-        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg">
-          <div className="p-2 border-b border-gray-200">
-            <input
-              {...getInputProps()}
-              className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary-500"
-              placeholder="Type to search or create..."
-            />
+        <div className="absolute z-50 w-full mt-1 bg-gray-800 border border-gray-700 rounded-lg shadow-xl">
+          <div className="p-2 border-b border-gray-700">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <input
+                {...getInputProps()}
+                className="w-full pl-9 pr-3 py-2 text-sm bg-gray-900 border border-gray-700 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                placeholder="Type to search or create..."
+              />
+            </div>
           </div>
           <ul {...getMenuProps()} className="max-h-60 overflow-auto py-1">
             {state.filteredOptions.map((option: SelectOption<string>, index: number) => (
               <li
                 key={option.value}
                 {...getOptionProps(option, index)}
-                className={`px-4 py-2 cursor-pointer ${
+                className={`px-4 py-2.5 cursor-pointer transition-colors ${
                   index === state.highlightedIndex
-                    ? 'bg-primary-50 text-primary-700'
-                    : 'text-gray-700'
+                    ? 'bg-primary-500/20 text-primary-400'
+                    : 'text-gray-300 hover:bg-gray-700'
                 }`}
               >
                 {option.label}
@@ -67,11 +72,11 @@ function CreatableSelect() {
             ))}
             {showCreateOption && (
               <li
-                className="px-4 py-2 cursor-pointer flex items-center gap-2 text-gray-700 hover:bg-gray-50"
+                className="px-4 py-2.5 cursor-pointer flex items-center gap-2 text-gray-300 hover:bg-gray-700 transition-colors"
                 onClick={() => handleCreate(state.searchValue)}
               >
-                <span className="text-primary-600">+</span>
-                Create "{state.searchValue}"
+                <Plus className="w-4 h-4 text-primary-400" />
+                Create "<span className="text-primary-400">{state.searchValue}</span>"
               </li>
             )}
             {state.filteredOptions.length === 0 && !showCreateOption && (
@@ -151,14 +156,14 @@ export default function CreatablePage() {
   return (
     <div className="space-y-12">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Creatable</h1>
-        <p className="mt-4 text-lg text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-100">Creatable</h1>
+        <p className="mt-4 text-lg text-gray-400">
           Allow users to create new options on the fly when their search doesn't match existing options.
         </p>
       </div>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Basic Creatable</h2>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Basic Creatable</h2>
         <Demo
           title="Creatable Select"
           description="Type something that doesn't exist to see the create option."
@@ -171,55 +176,55 @@ export default function CreatablePage() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Validation</h2>
-        <p className="text-gray-600 mb-4">
-          Validate input in the <code className="inline-code">onCreate</code> handler and return null to
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Validation</h2>
+        <p className="text-gray-400 mb-4">
+          Validate input in the <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">onCreate</code> handler and return null to
           prevent creation.
         </p>
         <CodeBlock code={customValidationCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Custom Create Label</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Custom Create Label</h2>
+        <p className="text-gray-400 mb-4">
           Customize how the "Create" option appears in the dropdown.
         </p>
         <CodeBlock code={formatCreateLabelCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Multi-Select with Create</h2>
-        <p className="text-gray-600 mb-4">
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Multi-Select with Create</h2>
+        <p className="text-gray-400 mb-4">
           Combine creatable with multi-select for tag-like behavior.
         </p>
         <CodeBlock code={multiCreatableCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">onCreate Callback</h2>
-        <p className="text-gray-600 mb-4">
-          The <code className="inline-code">onCreate</code> function receives the input value and should return
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">onCreate Callback</h2>
+        <p className="text-gray-400 mb-4">
+          The <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">onCreate</code> function receives the input value and should return
           the created option:
         </p>
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead>
+        <div className="overflow-x-auto rounded-lg border border-gray-800">
+          <table className="min-w-full divide-y divide-gray-800">
+            <thead className="bg-gray-900">
               <tr>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Parameter</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Type</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Description</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Parameter</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Type</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Description</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-800 bg-gray-900/50">
               <tr>
-                <td className="px-4 py-3 text-sm font-mono text-gray-900">inputValue</td>
-                <td className="px-4 py-3 text-sm text-gray-600">string</td>
-                <td className="px-4 py-3 text-sm text-gray-600">The text entered by the user</td>
+                <td className="px-4 py-3 text-sm font-mono text-primary-400">inputValue</td>
+                <td className="px-4 py-3 text-sm text-gray-400">string</td>
+                <td className="px-4 py-3 text-sm text-gray-400">The text entered by the user</td>
               </tr>
               <tr>
-                <td className="px-4 py-3 text-sm font-mono text-gray-900">returns</td>
-                <td className="px-4 py-3 text-sm text-gray-600">SelectOption | null</td>
-                <td className="px-4 py-3 text-sm text-gray-600">The created option to add and select</td>
+                <td className="px-4 py-3 text-sm font-mono text-primary-400">returns</td>
+                <td className="px-4 py-3 text-sm text-gray-400">SelectOption | null</td>
+                <td className="px-4 py-3 text-sm text-gray-400">The created option to add and select</td>
               </tr>
             </tbody>
           </table>

@@ -1,4 +1,5 @@
 import { useMultiSelect } from '@oxog/selectkit/react'
+import { X } from 'lucide-react'
 import CodeBlock from '../components/CodeBlock'
 import Demo from '../components/Demo'
 
@@ -22,33 +23,33 @@ function BasicMultiSelect() {
     <div {...getContainerProps()} className="relative w-80">
       <div
         {...getTriggerProps()}
-        className="min-h-[42px] px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:border-gray-400 focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 cursor-pointer"
+        className="min-h-[42px] px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg shadow-sm hover:border-gray-600 focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 cursor-pointer transition-colors"
       >
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-1.5">
           {state.selectedOptions.map((option, index) => (
             <span
               key={option.value}
               {...getTagProps(option, index)}
-              className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary-100 text-primary-700 rounded text-sm"
+              className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary-500/20 text-primary-400 rounded text-sm"
             >
               {option.label}
               <button
                 {...getTagRemoveProps(option)}
-                className="hover:text-primary-900"
+                className="hover:text-primary-200 transition-colors"
               >
-                ×
+                <X className="w-3.5 h-3.5" />
               </button>
             </span>
           ))}
           {state.selectedOptions.length === 0 && (
-            <span className="text-gray-400">Select fruits...</span>
+            <span className="text-gray-500">Select fruits...</span>
           )}
         </div>
       </div>
       {state.isOpen && (
         <ul
           {...getMenuProps()}
-          className="absolute z-10 w-full mt-1 py-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-auto"
+          className="absolute z-50 w-full mt-1 py-1 bg-gray-800 border border-gray-700 rounded-lg shadow-xl max-h-60 overflow-auto"
         >
           {state.filteredOptions.map((option, index) => {
             const isSelected = state.selectedOptions.some((s) => s.value === option.value)
@@ -56,15 +57,15 @@ function BasicMultiSelect() {
               <li
                 key={option.value}
                 {...getOptionProps(option, index)}
-                className={`px-4 py-2 cursor-pointer flex items-center gap-2 ${
+                className={`px-4 py-2.5 cursor-pointer flex items-center gap-2 transition-colors ${
                   index === state.highlightedIndex
-                    ? 'bg-primary-50 text-primary-700'
-                    : 'text-gray-700'
+                    ? 'bg-primary-500/20 text-primary-400'
+                    : 'text-gray-300 hover:bg-gray-700'
                 }`}
               >
                 <span
-                  className={`w-4 h-4 border rounded flex items-center justify-center ${
-                    isSelected ? 'bg-primary-600 border-primary-600 text-white' : 'border-gray-300'
+                  className={`w-4 h-4 border rounded flex items-center justify-center text-xs ${
+                    isSelected ? 'bg-primary-600 border-primary-600 text-white' : 'border-gray-600'
                   }`}
                 >
                   {isSelected && '✓'}
@@ -91,57 +92,56 @@ function LimitedMultiSelect() {
     <div {...getContainerProps()} className="relative w-80">
       <div
         {...getTriggerProps()}
-        className="min-h-[42px] px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:border-gray-400 focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 cursor-pointer"
+        className="min-h-[42px] px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg shadow-sm hover:border-gray-600 focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 cursor-pointer transition-colors"
       >
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-1.5">
           {state.selectedOptions.map((option, index) => (
             <span
               key={option.value}
               {...getTagProps(option, index)}
-              className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary-100 text-primary-700 rounded text-sm"
+              className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary-500/20 text-primary-400 rounded text-sm"
             >
               {option.label}
               <button
                 {...getTagRemoveProps(option)}
-                className="hover:text-primary-900"
+                className="hover:text-primary-200 transition-colors"
               >
-                ×
+                <X className="w-3.5 h-3.5" />
               </button>
             </span>
           ))}
           {state.selectedOptions.length === 0 && (
-            <span className="text-gray-400">Select up to 3 fruits...</span>
+            <span className="text-gray-500">Select up to 3 fruits...</span>
           )}
         </div>
       </div>
       {state.isOpen && (
         <ul
           {...getMenuProps()}
-          className="absolute z-10 w-full mt-1 py-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-auto"
+          className="absolute z-50 w-full mt-1 py-1 bg-gray-800 border border-gray-700 rounded-lg shadow-xl max-h-60 overflow-auto"
         >
           {state.filteredOptions.map((option, index) => {
             const isSelected = state.selectedOptions.some((s) => s.value === option.value)
-            const isDisabled =
-              !isSelected && state.selectedOptions.length >= 3
+            const isDisabled = !isSelected && state.selectedOptions.length >= 3
             return (
               <li
                 key={option.value}
                 {...getOptionProps(option, index)}
-                className={`px-4 py-2 flex items-center gap-2 ${
+                className={`px-4 py-2.5 flex items-center gap-2 transition-colors ${
                   isDisabled
-                    ? 'text-gray-400 cursor-not-allowed'
+                    ? 'text-gray-600 cursor-not-allowed'
                     : index === state.highlightedIndex
-                    ? 'bg-primary-50 text-primary-700 cursor-pointer'
-                    : 'text-gray-700 cursor-pointer'
+                    ? 'bg-primary-500/20 text-primary-400 cursor-pointer'
+                    : 'text-gray-300 hover:bg-gray-700 cursor-pointer'
                 }`}
               >
                 <span
-                  className={`w-4 h-4 border rounded flex items-center justify-center ${
+                  className={`w-4 h-4 border rounded flex items-center justify-center text-xs ${
                     isSelected
                       ? 'bg-primary-600 border-primary-600 text-white'
                       : isDisabled
-                      ? 'border-gray-200'
-                      : 'border-gray-300'
+                      ? 'border-gray-700'
+                      : 'border-gray-600'
                   }`}
                 >
                   {isSelected && '✓'}
@@ -214,14 +214,14 @@ export default function MultiSelectPage() {
   return (
     <div className="space-y-12">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">MultiSelect</h1>
-        <p className="mt-4 text-lg text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-100">MultiSelect</h1>
+        <p className="mt-4 text-lg text-gray-400">
           A multi-value select component for selecting multiple options from a list.
         </p>
       </div>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Basic Usage</h2>
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Basic Usage</h2>
         <Demo title="Basic MultiSelect" description="Click to select multiple options.">
           <BasicMultiSelect />
         </Demo>
@@ -231,9 +231,9 @@ export default function MultiSelectPage() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Maximum Selections</h2>
-        <p className="text-gray-600 mb-4">
-          Limit the number of selections with the <code className="inline-code">maxSelected</code> prop.
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Maximum Selections</h2>
+        <p className="text-gray-400 mb-4">
+          Limit the number of selections with the <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">maxSelected</code> prop.
         </p>
         <Demo title="Limited MultiSelect" description="Maximum 3 selections allowed.">
           <LimitedMultiSelect />
@@ -244,50 +244,50 @@ export default function MultiSelectPage() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Searchable</h2>
-        <p className="text-gray-600 mb-4">
-          Enable search functionality with the <code className="inline-code">searchable</code> prop.
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Searchable</h2>
+        <p className="text-gray-400 mb-4">
+          Enable search functionality with the <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">searchable</code> prop.
         </p>
         <CodeBlock code={searchableCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Clearable</h2>
-        <p className="text-gray-600 mb-4">
-          Add a clear all button with the <code className="inline-code">clearable</code> prop.
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Clearable</h2>
+        <p className="text-gray-400 mb-4">
+          Add a clear all button with the <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">clearable</code> prop.
         </p>
         <CodeBlock code={clearableCode} language="tsx" />
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Tag Props</h2>
-        <p className="text-gray-600 mb-4">
-          The <code className="inline-code">getTagProps</code> function returns props for each selected tag:
+        <h2 className="text-2xl font-bold text-gray-100 mb-4">Tag Props</h2>
+        <p className="text-gray-400 mb-4">
+          The <code className="px-1.5 py-0.5 bg-gray-800 rounded text-primary-400 text-sm">getTagProps</code> function returns props for each selected tag:
         </p>
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead>
+        <div className="overflow-x-auto rounded-lg border border-gray-800">
+          <table className="min-w-full divide-y divide-gray-800">
+            <thead className="bg-gray-900">
               <tr>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Prop</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Type</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Description</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Prop</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Type</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">Description</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-800 bg-gray-900/50">
               <tr>
-                <td className="px-4 py-3 text-sm font-mono text-gray-900">onRemove</td>
-                <td className="px-4 py-3 text-sm text-gray-600">() =&gt; void</td>
-                <td className="px-4 py-3 text-sm text-gray-600">Remove this tag</td>
+                <td className="px-4 py-3 text-sm font-mono text-primary-400">onRemove</td>
+                <td className="px-4 py-3 text-sm text-gray-400">() =&gt; void</td>
+                <td className="px-4 py-3 text-sm text-gray-400">Remove this tag</td>
               </tr>
               <tr>
-                <td className="px-4 py-3 text-sm font-mono text-gray-900">onKeyDown</td>
-                <td className="px-4 py-3 text-sm text-gray-600">KeyboardEventHandler</td>
-                <td className="px-4 py-3 text-sm text-gray-600">Handle keyboard navigation between tags</td>
+                <td className="px-4 py-3 text-sm font-mono text-primary-400">onKeyDown</td>
+                <td className="px-4 py-3 text-sm text-gray-400">KeyboardEventHandler</td>
+                <td className="px-4 py-3 text-sm text-gray-400">Handle keyboard navigation between tags</td>
               </tr>
               <tr>
-                <td className="px-4 py-3 text-sm font-mono text-gray-900">tabIndex</td>
-                <td className="px-4 py-3 text-sm text-gray-600">number</td>
-                <td className="px-4 py-3 text-sm text-gray-600">Focus management for tags</td>
+                <td className="px-4 py-3 text-sm font-mono text-primary-400">tabIndex</td>
+                <td className="px-4 py-3 text-sm text-gray-400">number</td>
+                <td className="px-4 py-3 text-sm text-gray-400">Focus management for tags</td>
               </tr>
             </tbody>
           </table>
